@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Financial Calculator Pro</title>
+    <link rel="stylesheet" href="main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><i class="fas fa-calculator"></i> Financial Calculator Pro</h1>
+            <p>Your comprehensive tool for all financial calculations</p>
+        </header>
+
+        <div class="calculator-container">
+            <div class="calculator-nav">
+                <div class="category">
+                    <h3>Basic Banking</h3>
+                    <button class="nav-btn active" data-calc="simple-interest">Simple Interest</button>
+                    <button class="nav-btn" data-calc="compound-interest">Compound Interest</button>
+                </div>
+                <div class="category">
+                    <h3>Loan & Credit</h3>
+                    <button class="nav-btn" data-calc="emi-calculator">EMI Calculator</button>
+                </div>
+                <div class="category">
+                    <h3>Savings & Investment</h3>
+                    <button class="nav-btn" data-calc="fixed-deposit">Fixed Deposit</button>
+                    <button class="nav-btn" data-calc="recurring-deposit">Recurring Deposit</button>
+                    <button class="nav-btn" data-calc="sip-calculator">SIP Calculator</button>
+                </div>
+                <div class="category">
+                    <h3>Future Planning</h3>
+                    <button class="nav-btn" data-calc="inflation-calculator">Inflation Calculator</button>
+                </div>
+            </div>
+
+            <div class="calculator-content">
+                <!-- Simple Interest Calculator -->
+                <div class="calculator-form active" id="simple-interest">
+                    <h2>Simple Interest Calculator</h2>
+                    <form>
+                        <div class="form-group">
+                            <label for="si-principal">Principal Amount</label>
+                            <div class="input-group">
+                                <span class="input-prefix">$</span>
+                                <input type="number" id="si-principal" min="0" step="100" value="1000" required>
+                                <div class="tooltip"><i class="fas fa-info-circle"></i><span class="tooltiptext">The initial amount you deposit or borrow</span></div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="si-rate">Interest Rate (% per annum)</label>
+                            <div class="input-group">
+                                <input type="number" id="si-rate" min="0" max="100" step="0.1" value="5" required>
+                                <span class="input-suffix">%</span>
+                                <div class="tooltip"><i class="fas fa-info-circle"></i><span class="tooltiptext">Annual interest rate</span></div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="si-time">Time Period</label>
+                            <div class="input-group time-input">
+                                <input type="number" id="si-time" min="1" step="1" value="3" required>
+                                <select id="si-time-unit">
+                                    <option value="years">Years</option>
+                                    <option value="months">Months</option>
+                                </select>
+                                <div class="tooltip"><i class="fas fa-info-circle"></i><span class="tooltiptext">Duration of the deposit or loan</span></div>
+                            </div>
+                        </div>
+                        <button type="button" class="calculate-btn" onclick="calculateSimpleInterest()">Calculate</button>
+                    </form>
+                    <div class="results">
+                        <div class="result-item">
+                            <span class="result-label">Interest Earned:</span>
+                            <span class="result-value" id="si-interest">$150.00</span>
+                        </div>
+                        <div class="result-item">
+                            <span class="result-label">Total Amount:</span>
+                            <span class="result-value" id="si-total">$1,150.00</span>
+                        </div>
+                    </div>
+                    <div class="formula-section">
+                        <button class="toggle-formula" onclick="toggleFormula('si-formula')">Show Formula</button>
+                        <div class="formula-content" id="si-formula">
+                            <p>Simple Interest = Principal × Rate × Time</p>
+                            <p>Where:</p>
+                            <ul>
+                                <li>Principal: The initial amount of money</li>
+                                <li>Rate: The interest rate per year (in decimal form)</li>
+                                <li>Time: The time period in years</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Compound Interest Calculator -->
+                <div class="calculator-form" id="compound-interest">
+                    <h2>Compound Interest Calculator</h2>
+                    <form>
+                        <div class="form-group">
+                            <label for="ci-principal">Principal Amount</label>
+                            <div class="input-group">
+                                <span class="input-prefix">$</span>
+                                <input type="number" id="ci-principal" min="0" step="100" value="1000" required>
+                                <div class="tooltip"><i class="fas fa-info-circle"></i><span class="tooltiptext">The initial amount you deposit or borrow</span></div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="ci-rate">Interest Rate (% per annum)</label>
+                            <div class="input-group">
+                                <input type="number" id="ci-rate" min="0" max="100" step="0.1" value="5" required>
+                                <span class="input-suffix">%</span>
+                                <div class="tooltip"><i class="fas fa-info-circle"></i><span class="tooltiptext">Annual interest rate</span></div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="ci-time">Time Period</label>
+                            <div class="input-group time-input">
+                                <input type="number" id="ci-time" min="1" step="1" value="3" required>
+                                <select id="ci-time-unit">
+                                    <option value="years">Years</option>
+                                    <option value="months">Months</option>
+                                </select>
+                                <div class="tooltip"><i class="fas fa-info-circle"></i><span class="tooltiptext">Duration of the deposit or loan</span></div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="ci-frequency">Compounding Frequency</label>
+                            <div class="input-group">
+                                <select id="ci-frequency">
+                                    <option value="1">Annually</option>
+                                    <option value="2">Semi-Annually</option>
+                                    <option value="4">Quarterly</option>
+                                    <option value="12" selected>Monthly</option>
+                                    <option value="365">Daily</option>
+                                </select>
+                                <div class="tooltip"><i class="fas fa-info-circle"></i><span class="tooltiptext">How often interest is compounded per year</span></div>
+                            </div>
+                        </div>
+                        <button type="button" class="calculate-btn" onclick="calculateCompoundInterest()">Calculate</button>
+                    </form>
+                    <div class="results">
+                        <div class="result-item">
+                            <span class="result-label">Interest Earned:</span>
+                            <span class="result-value" id="ci-interest">$0.00</span>
+                        </div>
+                        <div class="result-item">
+                            <span class="result-label">Total Amount:</span>
+                            <span class="result-value" id="ci-total">$0.00</span>
+                        </div>
+                    </div>
+                    <div class="formula-section">
+                        <button class="toggle-formula" onclick="toggleFormula('ci-formula')">Show Formula</button>
+                        <div class="formula-content" id="ci-formula">
+                            <p>A = P(1 + r/n)^(nt)</p>
+                            <p>Where:</p>
+                            <ul>
+                                <li>A: Final amount</li>
+                                <li>P: Principal (initial investment)</li>
+                                <li>r: Annual interest rate (decimal)</li>
+                                <li>n: Compounding frequency per year</li>
+                                <li>t: Time period in years</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- EMI Calculator -->
+                <div class="calculator-form" id="emi-calculator">
+                    <h2>EMI Calculator</h2>
+                    <form>
+                        <div class="form-group">
+                            <label for="emi-principal">Loan Amount</label>
+                            <div class="input-group">
+                                <span class="input-prefix">$</span>
+                                <input type="number" id="emi-principal" min="0" step="1000" value="100000" required>
+                                <div class="tooltip"><i class="fas fa-info-circle"></i><span class="tooltiptext">The amount you wish to borrow</span></div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="emi-rate">Interest Rate (% per annum)</label>
+                            <div class="input-group">
+                                <input type="number" id="emi-rate" min="0" max="100" step="0.1" value="7" required>
+                                <span class="input-suffix">%</span>
+                                <div class="tooltip"><i class="fas fa-info-circle"></i><span class="tooltiptext">Annual interest rate for the loan</span></div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="emi-tenure">Loan Tenure</label>
+                            <div class="input-group time-input">
+                                <input type="number" id="emi-tenure" min="1" step="1" value="5" required>
+                                <select id="emi-tenure-unit">
+                                    <option value="years">Years</option>
+                                    <option value="months">Months</option>
+                                </select>
+                                <div class="tooltip"><i class="fas fa-info-circle"></i><span class="tooltiptext">Duration of the loan</span></div>
+                            </div>
+                        </div>
+                        <button type="button" class="calculate-btn" onclick="calculateEMI()">Calculate</button>
+                    </form>
+                    <div class="results">
+                        <div class="result-item">
+                            <span class="result-label">Monthly EMI:</span>
+                            <span class="result-value" id="emi-monthly">$0.00</span>
+                        </div>
+                        <div class="result-item">
+                            <span class="result-label">Total Interest:</span>
+                            <span class="result-value" id="emi-total-interest">$0.00</span>
+                        </div>
+                        <div class="result-item">
+                            <span class="result-label">Total Payment:</span>
+                            <span class="result-value" id="emi-total-payment">$0.00</span>
+                        </div>
+                    </div>
+                    <div class="formula-section">
+                        <button class="toggle-formula" onclick="toggleFormula('emi-formula')">Show Formula</button>
+                        <div class="formula-content" id="emi-formula">
+                            <p>EMI = P × r × (1 + r)^n / ((1 + r)^n - 1)</p>
+                            <p>Where:</p>
+                            <ul>
+                                <li>P: Principal loan amount</li>
+                                <li>r: Monthly interest rate (annual rate ÷ 12 ÷ 100)</li>
+                                <li>n: Loan tenure in months</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Fixed Deposit Calculator -->
+                <div class="calculator-form" id="fixed-deposit">
+                    <h2>Fixed Deposit Calculator</h2>
+                    <form>
+                        <div class="form-group">
+                            <label for="fd-principal">Deposit Amount</label>
+                            <div class="input-group">
+                                <span class="input-prefix">$</span>
+                                <input type="number" id="fd-principal" min="0" step="1000" value="10000" required>
+                                <div class="tooltip"><i class="fas fa-info-circle"></i><span class="tooltiptext">Amount you wish to deposit</span></div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="fd-rate">Interest Rate (% per annum)</label>
+                            <div class="input-group">
+                                <input type="number" id="fd-rate" min="0" max="100" step="0.1" value="6" required>
+                                <span class="input-suffix">%</span>
+                                <div class="tooltip"><i class="fas fa-info-circle"></i><span class="tooltiptext">Annual interest rate offered by the bank</span></div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="fd-time">Tenure</label>
+                            <div class="input-group time-input">
+                                <input type="number" id="fd-time" min="1" step="1" value="2" required>
+                                <select id="fd-time-unit">
+                                    <option value="years">Years</option>
+                                    <option value="months">Months</option>
+                                </select>
+                                <div class="tooltip"><i class="fas fa-info-circle"></i><span class="tooltiptext">Duration of the deposit</span></div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="fd-frequency">Compounding Frequency</label>
+                            <div class="input-group">
+                                <select id="fd-frequency">
+                                    <option value="1">Annually</option>
+                                    <option value="2">Semi-Annually</option>
+                                    <option value="4" selected>Quarterly</option>
+                                    <option value="12">Monthly</option>
+                                </select>
+                                <div class="tooltip"><i class="fas fa-info-circle"></i><span class="tooltiptext">How often interest is compounded</span></div>
+                            </div>
+                        </div>
+                        <button type="button" class="calculate-btn" onclick="calculateFixedDeposit()">Calculate</button>
+                    </form>
+                    <div class="results">
+                        <div class="result-item">
+                            <span class="result-label">Maturity Amount:</span>
+                            <span class="result-value" id="fd-maturity">$0.00</span>
+                        </div>
+                        <div class="result-item">
+                            <span class="result-label">Total Interest Earned:</span>
+                            <span class="result-value" id="fd-interest">$0.00</span>
+                        </div>
+                    </div>
+                    <div class="formula-section">
+                        <button class="toggle-formula" onclick="toggleFormula('fd-formula')">Show Formula</button>
+                        <div class="formula-content" id="fd-formula">
+                            <p>A = P(1 + r/n)^(nt)</p>
+                            <p>Where:</p>
+                            <ul>
+                                <li>A: Maturity amount</li>
+                                <li>P: Principal (deposit amount)</li>
+                                <li>r: Annual interest rate (decimal)</li>
+                                <li>n: Compounding frequency per year</li>
+                                <li>t: Time period in years</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recurring Deposit Calculator -->
+                <div class="calculator-form" id="recurring-deposit">
+                    <h2>Recurring Deposit Calculator</h2>
+                    <form>
+                        <div class="form-group">
+                            <label for="rd-monthly">Monthly Deposit</label>
+                            <div class="input-group">
+                                <span class="input-prefix">$</span>
+                                <input type="number" id="rd-monthly" min="0" step="100" value="500" required>
+                                <div class="tooltip"><i class="fas fa-info-circle"></i><span class="tooltiptext">Amount you deposit each month</span></div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="rd-rate">Interest Rate (% per annum)</label>
+                            <div class="input-group">
+                                <input type="number" id="rd-rate" min="0" max="100" step="0.1" value="5.5" required>
+                                <span class="input-suffix">%</span>
+                                <div class="tooltip"><i class="fas fa-info-circle"></i><span class="tooltiptext">Annual interest rate offered by the bank</span></div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="rd-time">Tenure (in months)</label>
+                            <div class="input-group">
+                                <input type="number" id="rd-time" min="1" max="120" step="1" value="36" required>
+                                <span class="input-suffix">months</span>
+                                <div class="tooltip"><i class="fas fa-info-circle"></i><span class="tooltiptext">Duration of the deposit in months</span></div>
+                            </div>
+                        </div>
+                        <button type="button" class="calculate-btn" onclick="calculateRecurringDeposit()">Calculate</button>
+                    </form>
+                    <div class="results">
+                        <div class="result-item">
+                            <span class="result-label">Maturity Amount:</span>
+                            <span class="result-value" id="rd-maturity">$0.00</span>
+                        </div>
+                        <div class="result-item">
+                            <span class="result-label">Total Amount Deposited:</span>
+                            <span class="result-value" id="rd-deposited">$0.00</span>
+                        </div>
+                        <div class="result-item">
+                            <span class="result-label">Total Interest Earned:</span>
+                            <span class="result-value" id="rd-interest">$0.00</span>
+                        </div>
+                    </div>
+                    <div class="formula-section">
+                        <button class="toggle-formula" onclick="toggleFormula('rd-formula')">Show Formula</button>
+                        <div class="formula-content" id="rd-formula">
+                            <p>M = P × n + P × (n × (n+1) ÷ 2) × (r ÷ 100) × (1 ÷ 12)</p>
+                            <p>Where:</p>
+                            <ul>
+                                <li>M: Maturity amount</li>
+                                <li>P: Monthly deposit amount</li>
+                                <li>n: Tenure in months</li>
+                                <li>r: Annual interest rate</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SIP Calculator -->
+                <div class="calculator-form" id="sip-calculator">
+                    <h2>SIP Calculator</h2>
+                    <form>
+                        <div class="form-group">
+                            <label for="sip-monthly">Monthly Investment</label>
+                            <div class="input-group">
+                                <span class="input-prefix">$</span>
+                                <input type="number" id="sip-monthly" min="0" step="100" value="1000" required>
+                                <div class="tooltip"><i class="fas fa-info-circle"></i><span class="tooltiptext">Amount you invest each month</span></div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="sip-rate">Expected Return Rate (% per annum)</label>
+                            <div class="input-group">
+                                <input type="number" id="sip-rate" min="0" max="100" step="0.1" value="12" required>
+                                <span class="input-suffix">%</span>
+                                <div class="tooltip"><i class="fas fa-info-circle"></i><span class="tooltiptext">Expected annual return rate on investment</span></div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="sip-time">Investment Duration</label>
+                            <div class="input-group time-input">
+                                <input type="number" id="sip-time" min="1" step="1" value="10" required>
+                                <select id="sip-time-unit">
+                                    <option value="years">Years</option>
+                                    <option value="months">Months</option>
+                                </select>
+                                <div class="tooltip"><i class="fas fa-info-circle"></i><span class="tooltiptext">Duration of investment</span></div>
+                            </div>
+                        </div>
+                        <button type="button" class="calculate-btn" onclick="calculateSIP()">Calculate</button>
+                    </form>
+                    <div class="results">
+                        <div class="result-item">
+                            <span class="result-label">Future Value:</span>
+                            <span class="result-value" id="sip-future-value">$0.00</span>
+                        </div>
+                        <div class="result-item">
+                            <span class="result-label">Total Amount Invested:</span>
+                            <span class="result-value" id="sip-invested">$0.00</span>
+                        </div>
+                        <div class="result-item">
+                            <span class="result-label">Wealth Gained:</span>
+                            <span class="result-value" id="sip-wealth-gained">$0.00</span>
+                        </div>
+                    </div>
+                    <div class="formula-section">
+                        <button class="toggle-formula" onclick="toggleFormula('sip-formula')">Show Formula</button>
+                        <div class="formula-content" id="sip-formula">
+                            <p>FV = P × (((1 + r)^n - 1) ÷ r) × (1 + r)</p>
+                            <p>Where:</p>
+                            <ul>
+                                <li>FV: Future value</li>
+                                <li>P: Monthly investment amount</li>
+                                <li>r: Monthly return rate (annual rate ÷ 12 ÷ 100)</li>
+                                <li>n: Number of months</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Inflation Calculator -->
+                <div class="calculator-form" id="inflation-calculator">
+                    <h2>Inflation-Adjusted Savings Calculator</h2>
+                    <form>
+                        <div class="form-group">
+                            <label for="inf-current">Current Amount</label>
+                            <div class="input-group">
+                                <span class="input-prefix">$</span>
+                                <input type="number" id="inf-current" min="0" step="1000" value="10000" required>
+                                <div class="tooltip"><i class="fas fa-info-circle"></i><span class="tooltiptext">Your current savings or amount</span></div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inf-rate">Expected Inflation Rate (% per annum)</label>
+                            <div class="input-group">
+                                <input type="number" id="inf-rate" min="0" max="100" step="0.1" value="3" required>
+                                <span class="input-suffix">%</span>
+                                <div class="tooltip"><i class="fas fa-info-circle"></i><span class="tooltiptext">Expected annual inflation rate</span></div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inf-time">Time Period</label>
+                            <div class="input-group time-input">
+                                <input type="number" id="inf-time" min="1" step="1" value="10" required>
+                                <select id="inf-time-unit">
+                                    <option value="years">Years</option>
+                                    <option value="months">Months</option>
+                                </select>
+                                <div class="tooltip"><i class="fas fa-info-circle"></i><span class="tooltiptext">Number of years in the future</span></div>
+                            </div>
+                        </div>
+                        <button type="button" class="calculate-btn" onclick="calculateInflation()">Calculate</button>
+                    </form>
+                    <div class="results">
+                        <div class="result-item">
+                            <span class="result-label">Future Value Needed:</span>
+                            <span class="result-value" id="inf-future-value">$0.00</span>
+                        </div>
+                        <div class="result-item">
+                            <span class="result-label">Purchasing Power Loss:</span>
+                            <span class="result-value" id="inf-loss">$0.00</span>
+                        </div>
+                    </div>
+                    <div class="formula-section">
+                        <button class="toggle-formula" onclick="toggleFormula('inf-formula')">Show Formula</button>
+                        <div class="formula-content" id="inf-formula">
+                            <p>FV = PV × (1 + i)^n</p>
+                            <p>Where:</p>
+                            <ul>
+                                <li>FV: Future value needed</li>
+                                <li>PV: Present value (current amount)</li>
+                                <li>i: Annual inflation rate (decimal)</li>
+                                <li>n: Number of years</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="actions">
+            <div class="history-section">
+                <h3>Calculation History</h3>
+                <div id="history-container">
+                    <p class="empty-history">No calculations yet</p>
+                </div>
+                <button id="clear-history-btn" class="secondary-btn">Clear History</button>
+            </div>
+            <div class="export-section">
+                <button id="print-btn" class="secondary-btn"><i class="fas fa-print"></i> Print Results</button>
+                <button id="download-btn" class="secondary-btn"><i class="fas fa-download"></i> Download as PDF</button>
+            </div>
+        </div>
+
+        <footer>
+            <p>&copy; 2025 Financial Calculator Pro. All calculations are for information purposes only.</p>
+        </footer>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
