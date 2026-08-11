@@ -1,6 +1,6 @@
 # Hi there 👋 I'm quantavil
 
-![Header Banner](https://capsule-render.vercel.app/api?type=waving&color=gradient&height=180&section=header&text=quantavil&fontSize=42&fontColor=ffffff&animation=fadeIn)
+![Header Banner](https://capsule-render.vercel.app/api?type=waving&color=gradient&height=120&section=header)
 
 ![Typing Animation](https://readme-typing-svg.demolab.com?font=Fira+Code&weight=600&size=20&pause=1000&color=38BDF8&width=600&height=45&lines=Software+Developer;Open+Source+Enthusiast;Building+modern+web+%26+mobile+apps...)
 
@@ -20,4 +20,4 @@
 
 ![Activity Graph](https://github-readme-activity-graph.vercel.app/graph?username=quantavil&theme=react-dark)
 
-![Footer Banner](https://capsule-render.vercel.app/api?type=waving&color=gradient&height=100&section=footer)
+![Footer Banner](https://capsule-render.vercel.app/api?type=waving&color=gradient&height=120&section=footer)
