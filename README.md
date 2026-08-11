@@ -1,10 +1,16 @@
 ## Hi there 👋
 
-![Rank](https://github-ranked.vercel.app/api/rank/quantavil)
+### 🌟 Recently Starred Repositories
 
-### 📊 GitHub Stats
+<!-- STARS:START -->
+<!-- STARS:END -->
+
+### 📊 GitHub Activity
 
 <p align="center">
-  <img src="https://github-readme-stats.vercel.app/api?username=quantavil&show_icons=true&theme=dark" alt="quantavil's GitHub stats" />
-  <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=quantavil&layout=compact&theme=dark" alt="Top Languages" />
+  <img src="https://github-readme-activity-graph.vercel.app/graph?username=quantavil&theme=react-dark" alt="Activity Graph" width="100%" />
+</p>
+
+<p align="center">
+  <img src="https://github-readme-streak-stats.herokuapp.com/?user=quantavil&theme=dark" alt="GitHub Streak" />
 </p>
