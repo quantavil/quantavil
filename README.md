@@ -18,6 +18,5 @@
 
 ### 📊 Contribution Activity
 
-![Activity Graph](https://github-readme-activity-graph.vercel.app/graph?username=quantavil&theme=react-dark)
-
+![GitHub Activity](https://github-profile-summary-cards.vercel.app/api/cards/profile-details?username=quantavil&theme=github_dark)
 ![Footer Banner](https://capsule-render.vercel.app/api?type=waving&color=gradient&height=120&section=footer)
